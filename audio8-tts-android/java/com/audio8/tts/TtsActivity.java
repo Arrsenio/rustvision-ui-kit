@@ -24,7 +24,7 @@ public class TtsActivity extends NativeActivity {
     }
 
     @Override
-    protected void onWindowFocusChanged(boolean hasFocus) {
+    public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             Immersive.apply(this);
