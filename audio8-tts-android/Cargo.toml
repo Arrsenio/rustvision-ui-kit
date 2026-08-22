@@ -1,0 +1,79 @@
+[package]
+name = "audio8_tts"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "OLED Tron Android client for Audio8 TTS (egui / eframe / cargo-apk2)"
+repository = "https://github.com/Arrsenio/rustvision-ui-kit"
+readme = "README.md"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+base64 = "0.22"
+egui = "0.31.1"
+log = "0.4"
+rand = { version = "0.8", features = ["std", "std_rng"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+unicode-general-category = "1"
+ureq = { version = "2.12", default-features = false, features = ["tls", "json"] }
+
+[target.'cfg(not(target_os = "android"))'.dependencies]
+eframe = { version = "0.31.1", default-features = false, features = ["glow", "default_fonts", "x11", "wayland"] }
+env_logger = "0.11"
+
+[target.'cfg(target_os = "android")'.dependencies]
+android_logger = "0.14"
+eframe = { version = "0.31.1", default-features = false, features = ["glow", "default_fonts", "android-native-activity"] }
+jni = "0.21"
+winit = { version = "0.30", default-features = false, features = ["android-native-activity"] }
+
+[package.metadata.android]
+use_aapt2 = true
+package = "com.audio8.tts"
+apk_name = "audio8-tts"
+java_sources = "java"
+build_targets = ["aarch64-linux-android", "x86_64-linux-android"]
+
+[package.metadata.android.sdk]
+min_sdk_version = 24
+target_sdk_version = 35
+
+[[package.metadata.android.uses_permission]]
+name = "android.permission.INTERNET"
+
+[[package.metadata.android.uses_permission]]
+name = "android.permission.ACCESS_NETWORK_STATE"
+
+[[package.metadata.android.uses_permission]]
+name = "android.permission.MODIFY_AUDIO_SETTINGS"
+
+[package.metadata.android.application]
+label = "Audio8 TTS"
+theme = "@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
+has_code = true
+uses_cleartext_traffic = true
+extract_native_libs = true
+debuggable = true
+
+[[package.metadata.android.application.activity]]
+name = "com.audio8.tts.TtsActivity"
+exported = true
+theme = "@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
+config_changes = "orientation|keyboardHidden|screenSize|keyboard|navigation|screenLayout|smallestScreenSize"
+launch_mode = "singleTask"
+orientation = "portrait"
+window_soft_input_mode = "adjustResize"
+always_retain_task_state = true
+
+[[package.metadata.android.application.activity.meta_data]]
+name = "android.app.lib_name"
+value = "audio8_tts"
+
+[[package.metadata.android.application.activity.intent_filter]]
+actions = ["android.intent.action.MAIN"]
+categories = ["android.intent.category.LAUNCHER"]

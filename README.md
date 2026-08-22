@@ -41,3 +41,7 @@ Patterns here were proven in **NORTH MICROSIGHT** (`rustvision-01`): live Camera
 ## License
 
 Reference code and docs are provided as-is for reuse in your own projects. Match the license of your downstream app.
+
+## Example app
+
+The Audio8 TTS Android client that uses this kit lives in [`audio8-tts-android/`](audio8-tts-android/).
