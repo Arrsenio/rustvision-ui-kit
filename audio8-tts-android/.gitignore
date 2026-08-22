@@ -1,0 +1,10 @@
+/target
+**/*.rs.bk
+.idea
+.DS_Store
+*.apk
+*.ap_
+*.idsig
+local.properties
+keystore.jks
+.gradle
